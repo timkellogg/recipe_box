@@ -18,14 +18,17 @@
       <input type="text" name="pic_link">
 
       <label for="ingredients">Pick Ingredients</label>
-      <input type="text" name="ingredients" placeholder="e.x., bananas, chocolate chips, etc.">
-
+      <input type="text" required name="ingredients" placeholder="e.x., bananas, chocolate chips, etc.">
+<!--
       <% if @categories.any? %>
         <label for="categories">Add Categories</label>
         <% @categories.each do |category|%>
-          <input type="checkbox" name="<%= category.name %>" value="<%= category.id %>">
+          <input type="checkbox" name="<%= category.dish_type %>" value="<%= category.id %>">
         <% end %>
-      <% end %>
+      <% end %> -->
+
+      <label for="category">Name of categories:</label>
+      <input type="text" name="category">
 
         <input type="hidden" name="rating" value="3">
 
@@ -40,16 +43,16 @@
 
 </form>
 
-<div class="row">
+<!-- <div class="row">
   <div class="large-12 text-center columns">
     <h3>Add Category</h3>
 
     <form id="add-category-form" action="/admin_portal" method="post">
 
-      <label for="dish_type">Name of cateogory</label>
+      <label for="dish_type">Name of category</label>
       <input type="text" name="dish_type">
 
       <button type="submit">Submit</button>
     </form>
   </div>
-</div>
+</div> -->

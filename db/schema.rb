@@ -11,15 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826170912) do
+ActiveRecord::Schema.define(version: 20150826222348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.integer "recipe_id"
-    t.integer "ingredient_id"
-    t.string  "dish_type"
+    t.string "dish_type"
+  end
+
+  create_table "categories_recipes", force: :cascade do |t|
+    t.integer  "recipe_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ingredients", force: :cascade do |t|
@@ -28,11 +33,20 @@ ActiveRecord::Schema.define(version: 20150826170912) do
 
   add_index "ingredients", ["item"], name: "index_ingredients_on_item", using: :btree
 
+  create_table "ingredients_recipes", force: :cascade do |t|
+    t.integer  "ingredient_id"
+    t.integer  "recipe_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "recipes", force: :cascade do |t|
-    t.string  "instructions"
-    t.integer "rating"
-    t.string  "dish_name"
-    t.string  "pic_link"
+    t.string   "instructions"
+    t.integer  "rating"
+    t.string   "dish_name"
+    t.string   "pic_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "recipes", ["dish_name"], name: "index_recipes_on_dish_name", using: :btree
