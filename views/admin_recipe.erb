@@ -1,0 +1,22 @@
+<h2>Admin:</h2>
+
+<%= @recipe.rating %>/5<h3><%= @recipe.dish_name %></h3>
+<p>Added on:<%= @recipe.created_at %></p>
+
+<% if @recipe.published == false %>
+  <p>Not published</p>
+<% else %>
+  <p>Published</p>
+<% end %>
+
+<img src="<%= @recipe.pic_link %>"/>
+<h4>Instructions:</h4>
+<p><%= @recipe.instructions %></p>
+
+<div class="row">
+  <div id="edit-panel" class="large-12 columns text-center">
+    <a class="button info" href="/admin/recipes/<%= @recipe.id %>/edit">Edit</a>
+    <a class="button warning" href="/admin/recipes/<%= @recipe.id %>/delete">Delete</a>
+    <a class="button" href="/admin/recipes">View all</a>
+  </div>
+</div>

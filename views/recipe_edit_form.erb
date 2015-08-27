@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="large-12 text-center columns">
+    <h3>Edit Recipe</h3>
+  </div>
+</div>
+
+<form action="/admin/recipes/<%= @recipe.id %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+
+  <div class="row">
+    <div class="large-12 text-center columns">
+      <label for="instructions">Instructions:</label>
+      <input type="text" name="instructions" value="<%= @recipe.instructions %>">
+
+      <label for="dish_name">Name of the Dish:</label>
+      <input type="text" name="dish_name" value="<%= @recipe.dish_name %>">
+
+      <label for="pic_link">Add a link to a picture:</label>
+      <input type="text" name="pic_link" value="<%= @recipe.pic_link %>">
+
+      <label for="ingredients">Pick Ingredients:</label>
+      <input type="text" required name="ingredients" value="<%= @ingredients %>">
+
+      <label for="category">Name of categories:</label>
+      <input type="text" name="category" value="<%= @categories %>">
+
+      <label for="rating">Change rating:</label>
+      <input type="text" name="rating" value="<%= @recipe.rating %>">
+
+      <button type="submit">Confirm edits</button>
+    </div>
+  </div>
+</form>

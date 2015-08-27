@@ -19,7 +19,7 @@ get '/admin/recipes' do
   @categories = Category.all
   @recipes = Recipe.all
   @ingredients = Ingredient.all
-  erb :recipe_crud
+  erb :admin_recipes
 end
 
 post '/admin/recipes' do
@@ -49,7 +49,7 @@ post '/admin/recipes' do
   @recipes = Recipe.all
   @categories = Category.all
 
-  erb :recipe_crud
+  erb :admin_recipes
 end
 
 get '/admin/recipes/:id' do
@@ -59,7 +59,14 @@ end
 
 get '/admin/recipes/:id/edit' do
   @recipe = Recipe.find(params['id'])
-  erb :admin_recipe_edit_form
+  @ingredients = ''
+  @categories  = ''
+
+  @recipe.ingredients.each { |ingredient| @ingredients += ingredient.item }
+  @recipe.categories.each  { |category| @categories += category.dish_type }
+  @ingredients
+  @categories
+  erb :recipe_edit_form
 end
 
 patch '/admin/recipes/:id' do
@@ -68,6 +75,7 @@ patch '/admin/recipes/:id' do
   pic_link     = params['pic_link']
   rating       = params['rating'].to_i
   ingredients  = params['ingredients'].split(',')
+
   @recipe = Recipe.find(params['id'])
 
   @recipe.update({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
@@ -79,6 +87,7 @@ patch '/admin/recipes/:id' do
   end
 
   ingredients.each do |ingredient|
+
     ingredient = Ingredient.find_by(item: ingredient)
     ingredient.update({ item: ingredient})
     @recipe.ingredients.push(ingredient)
