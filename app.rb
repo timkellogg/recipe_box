@@ -29,27 +29,30 @@ post '/admin/recipes' do
   rating       = params['rating'].to_i
   ingredients  = params['ingredients'].split(',')
 
-  @recipe      = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
-  categories   = params['category'].split(',')
+  begin
+    @recipe      = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
+    categories   = params['category'].split(',')
 
-  categories.each do |category_name|
-    category = Category.find_or_create_by(dish_type: category_name)
-    @recipe.categories.push(category)
-  end
-
-  ingredients.each do |ingredient|
-    if Ingredient.find_by({ item: ingredient })
-      ingredient = Ingredient.find_by({ item: ingredient })
-    else
-      ingredient = Ingredient.create({ item: ingredient })
+    categories.each do |category_name|
+      category = Category.find_or_create_by(dish_type: category_name)
+      @recipe.categories.push(category)
     end
-      @recipe.ingredients.push(ingredient)
+
+    ingredients.each do |ingredient|
+      if Ingredient.find_by({ item: ingredient })
+        ingredient = Ingredient.find_by({ item: ingredient })
+      else
+        ingredient = Ingredient.create({ item: ingredient })
+      end
+        @recipe.ingredients.push(ingredient)
+    end
+
+    @recipes = Recipe.all
+    @categories = Category.all
+    erb :admin_recipes
+  rescue => e
+    redirect '/admin/recipes/new'
   end
-
-  @recipes = Recipe.all
-  @categories = Category.all
-
-  erb :admin_recipes
 end
 
 get '/admin/recipes/:id' do
@@ -70,28 +73,41 @@ get '/admin/recipes/:id/edit' do
 end
 
 patch '/admin/recipes/:id' do
-  instructions = params['instructions']
-  dish_name    = params['dish_name']
-  pic_link     = params['pic_link']
-  rating       = params['rating'].to_i
-  ingredients  = params['ingredients'].split(',')
 
+  begin
+    instructions = params['instructions']
+    dish_name    = params['dish_name']
+    pic_link     = params['pic_link']
+    rating       = params['rating'].to_i
+    ingredients  = params['ingredients'].split(',')
+
+    @recipe = Recipe.find(params['id'])
+
+    @recipe.update({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
+    categories = params['category'].split(',')
+
+    categories.each do |category_name|
+      category = Category.find_or_create_by(dish_type: category_name)
+      @recipe.categories.push(category)
+    end
+
+    ingredients.each do |ingredient|
+
+      ingredient = Ingredient.find_by(item: ingredient)
+      ingredient.update({ item: ingredient})
+      @recipe.ingredients.push(ingredient)
+    end
+    erb :recipe
+  rescue => e
+    redirect "/admin/recipes/#{@recipe.id}/edit"
+  end
+end
+
+get '/admin/recipes/:id/delete' do
   @recipe = Recipe.find(params['id'])
-
-  @recipe.update({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
-  categories = params['category'].split(',')
-
-  categories.each do |category_name|
-    category = Category.find_or_create_by(dish_type: category_name)
-    @recipe.categories.push(category)
+  if @recipe.delete
+    redirect '/admin/recipes'
+  else
+    redirect "/admin/recipes/#{@recipe.id}"
   end
-
-  ingredients.each do |ingredient|
-
-    ingredient = Ingredient.find_by(item: ingredient)
-    ingredient.update({ item: ingredient})
-    @recipe.ingredients.push(ingredient)
-  end
-
-  erb :recipe
 end

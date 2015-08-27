@@ -1,3 +1,8 @@
+<div class="row">
+  <div class="large-12 columns text-center">
+    <a class="button" href="/admin/recipes/new">Create a new recipe</a>
+  </div>
+</div>
 <% @categories.each do |category| %>
 <h1><%= category.dish_type %></h1>
   <% category.recipes.each do |recipe| %>

@@ -28,6 +28,13 @@
       </section>
     </nav>
     <div class="container">
+      <% if @message %>
+      <div class="row">
+        <div class="large-12 text-center columns">
+          <p><%= @message %><p>
+        </div>
+      </div>
+      <% end %>
       <%= yield %>
     </div>
   </div>
