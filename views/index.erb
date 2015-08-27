@@ -15,19 +15,17 @@
 </ul>
 
 <!-- Favorites -->
-<div id="favorites" class="row">
+<div id="favorites" class="container">
   <div class="large-12 columns text-center">
     <h1 class="section-header">Our Favorites</h1>
   </div>
 
   <% if @recipes.any? %>
-  <div class="grid">
     <% @recipes.each do |recipe| %>
-      <div class="grid-item">
+      <div class="large-12 columns text-center">
         <a href="/recipes/<%= recipe.id %>"><img src="<%= recipe.pic_link %>">
         <p class="text-center picture-caption"><%= recipe.dish_name %></p></a>
       </div>
-    </div>
     <% end %>
   <% end %>
 
