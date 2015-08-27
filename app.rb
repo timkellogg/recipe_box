@@ -20,6 +20,7 @@ get '/' do
 
   @recipes
   @recipes_highly_rated
+
   erb :index
 end
 
@@ -151,7 +152,7 @@ patch '/admin/recipes/:id' do
       @recipe.update({:ingredient_ids => ingredient.id})
       # @recipe.ingredients.push(ingredient)
     end
-    
+
 
     erb :admin_recipe
   rescue => e

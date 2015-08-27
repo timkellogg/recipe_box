@@ -24,7 +24,10 @@
     <% @recipes.each do |recipe| %>
       <div class="large-12 columns text-center">
         <a href="/recipes/<%= recipe.id %>"><img src="<%= recipe.pic_link %>">
-        <p class="text-center picture-caption"><%= recipe.dish_name %></p></a>
+        <p class="text-center picture-caption"><%= recipe.dish_name %>
+        <% recipe.rating.times do %>
+          <span class="rating"><i class="fi-star"></i></span>
+        <% end %></p>
       </div>
     <% end %>
   <% end %>

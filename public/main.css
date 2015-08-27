@@ -77,6 +77,9 @@ img {
   border: 5em solid green;
 }
 
+.rating {
+  color: gold;
+}
 
 ::-webkit-input-placeholder {
   color:lightgray;
