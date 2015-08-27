@@ -18,20 +18,17 @@
 
       <label for="ingredients">Pick Ingredients</label>
       <input type="text" required name="ingredients" placeholder="e.x., bananas, chocolate chips, etc.">
-<!--
-      <% if @categories.any? %>
-        <label for="categories">Add Categories</label>
-        <% @categories.each do |category|%>
-          <input type="checkbox" name="<%= category.dish_type %>" value="<%= category.id %>">
-        <% end %>
-      <% end %> -->
 
       <label for="category">Name of categories:</label>
       <input type="text" name="category">
 
-        <input type="hidden" name="rating" value="3">
+      <input type="hidden" name="rating" value="3">
 
-        <button type="submit">Submit</button>
+      <label>Publish Upon Creation?</label>
+      <input type="radio" name="published" value="t" id="published-true"><label for="published-true">Yes</label>
+      <input type="radio" name="published" value="f" id="published-false"><label for="published-false">No</label><br>
+
+      <button type="submit">Submit</button>
     </div>
   </div>
 </form>

@@ -27,6 +27,11 @@
       <label for="rating">Change rating:</label>
       <input type="text" name="rating" value="<%= @recipe.rating %>">
 
+      <label>Publish Upon Creation?</label>
+      <input type="radio" name="published" value="t" id="published-true"><label for="published-true">Yes</label>
+      <input type="radio" name="published" value="f" id="published-false"><label for="published-false">No</label>
+
+
       <button type="submit">Confirm edits</button>
     </div>
   </div>

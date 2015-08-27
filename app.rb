@@ -6,8 +6,11 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 # after { ActiveRecord::Base.connection.close }
 
 get '/' do
+  @recipes = Recipe.all
+
   erb(:index)
 end
+
 
 ### admin portal
 get '/admin/recipes/new' do
@@ -27,10 +30,18 @@ post '/admin/recipes' do
   dish_name    = params['dish_name']
   pic_link     = params['pic_link']
   rating       = params['rating'].to_i
+  published    = params['published']
+
+  if published == 't'
+    published = true
+  else
+    published = false
+  end
+
   ingredients  = params['ingredients'].split(',')
 
-    begin
-    @recipe      = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
+    # begin
+    @recipe      = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating, published: published })
     categories   = params['category'].split(',')
 
     categories.each do |category_name|
@@ -50,9 +61,9 @@ post '/admin/recipes' do
     @recipes = Recipe.all
     @categories = Category.all
     erb :admin_recipes
-  rescue => e
-    redirect "/admin/recipes/new"
-  end
+  # rescue => e
+    # redirect "/admin/recipes/new"
+  # end
 end
 
 get '/admin/recipes/:id' do
