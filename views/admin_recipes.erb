@@ -1,10 +1,15 @@
 <div class="row">
-  <div class="large-12 columns text-center">
-    <a class="button" href="/admin/recipes/new">Create a new recipe</a>
+  <div class="large-4 large-centered columns">
+    <ul class="button-group even-2 extra-margin-top">
+      <li><a class="button" href="/admin/recipes/new">Create a new recipe</a></li>
+      <li><a href="/admin/categories/new" class="button ">Create a new category</a></li>
+    </ul>
   </div>
 </div>
+
+
 <% @categories.each do |category| %>
-<h1><%= category.dish_type %></h1>
+<a href="/admin/categories/<%= category.id %>"><h1><%= category.dish_type %></h1></a>
   <% category.recipes.each do |recipe| %>
     <a class="th" href="/admin/recipes/<%= recipe.id %>">
       <img src="<%=recipe.pic_link %>">

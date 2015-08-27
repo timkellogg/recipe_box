@@ -169,3 +169,47 @@ get '/admin/recipes/:id/delete' do
     redirect "/admin/recipes/#{@recipe.id}"
   end
 end
+
+get '/admin/categories/new' do
+  erb :categories_create_form
+end
+
+post '/admin/recipes/' do
+  category = params['category']
+  category = Category.new({dish_type: category})
+  if category.save
+    redirect '/admin/recipes'
+  else
+    redirect '/admin/categories/new'
+  end
+end
+
+
+get '/admin/categories/:id' do
+  @category = Category.find(params['id'])
+  erb :admin_category
+end
+
+get '/admin/categories/:id/delete' do
+  @category = Category.find(params['id'])
+  if @category.delete
+    redirect '/admin/recipes'
+  else
+    redirect "/admin/categories/#{@category.id}"
+  end
+end
+
+get '/admin/categories/:id/edit' do
+  @category = Category.find(params['id'])
+  erb :category_edit_form
+end
+
+patch '/admin/categories/:id' do
+  dish_type = params['category']
+  @category = Category.find(params['id'])
+  if @category.update({dish_type: dish_type})
+    erb :admin_category
+  else
+    erb :category_edit_form
+  end
+end

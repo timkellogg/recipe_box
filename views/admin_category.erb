@@ -1,0 +1,9 @@
+<h3><%= @category.dish_type %></h3>
+
+<div class="row">
+  <div id="edit-panel" class="large-12 columns text-center">
+    <a class="button info" href="/admin/categories/<%= @category.id %>/edit">Edit</a>
+    <a class="button warning" href="/admin/categories/<%= @category.id %>/delete">Delete</a>
+    <a class="button" href="/admin/recipes">View all</a>
+  </div>
+</div>
