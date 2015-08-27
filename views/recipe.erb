@@ -1,5 +1,33 @@
-<h3><%= @recipe.dish_name %></h3>
+<div class="row">
+  <div class="large-12 text-left columns">
+    <h2><%= @recipe.dish_name %>
+      <% @recipe.rating.times do %>
+      <span class="rating"><i class="fi-star"></i></span>
+      <% end %></p>
+    </h2>
 
-<% @recipe.categories.each do |category| %>
-  <a href="/categories/<%= category.id %>"><%= category.dish_type %></a>
-<% end %>
+    <div class="row">
+      <div class="large-12 text-left columns">
+        <img src="<%= @recipe.pic_link %>">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns text-left">
+        <% @recipe.categories.each do |category| %>
+          <h4><a href="/categories/<%= category.id %>"><%= category.dish_type %></h4></a>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="recipe-instructions">
+      <%= @recipe.instructions %>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns text-center">
+        <a class="button round large" href="/">Back Home</a>
+      </div>
+    </div>
+  </div>
+</div>

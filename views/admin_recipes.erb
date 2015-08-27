@@ -1,3 +1,9 @@
+<div class="row">
+  <div class="large-12 text-center columns">
+    <h1 class="section-header">Admin Portal Home</h1>
+  </div>
+</div>
+
 
 <div class="row extra-margin">
   <div class="large-6 columns text-center">
@@ -10,10 +16,11 @@
 </div>
 
 
-
+<h2 class="section-header">Categories:</h2>
 <% @categories.each do |category| %>
 <a href="/admin/categories/<%= category.id %>"><h1><%= category.dish_type %></h1></a>
   <% category.recipes.each do |recipe| %>
+  <h4>Recipes:</h4>
     <a class="th" href="/admin/recipes/<%= recipe.id %>">
       <img src="<%=recipe.pic_link %>">
     </a>

@@ -31,13 +31,16 @@
       </div>
     <% end %>
   <% end %>
-
-
 </div>
 
 <div class="row">
   <div class="large-4 columns text-center">
     <h2 class="section-header">Our Highest Rated</h2>
+    <ul>
+      <% @recipes_highly_rated.each do |recipe| %>
+      <li><%= recipe.dish_name %></li>
+      <% end %>
+    </ul>
   </div>
 
   <div class="large-4 columns text-center">
