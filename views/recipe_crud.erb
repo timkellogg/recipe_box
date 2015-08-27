@@ -1,7 +1,7 @@
 <% @categories.each do |category| %>
 <h1><%= category.dish_type %></h1>
   <% category.recipes.each do |recipe| %>
-    <a class="th" href="/admin_portal/recipes/<%= recipe.id %>">
+    <a class="th" href="/admin/recipes/<%= recipe.id %>">
       <img src="<%=recipe.pic_link %>">
     </a>
   <% end %>

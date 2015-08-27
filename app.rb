@@ -3,27 +3,26 @@ Bundler.require :default, :test
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
-after do
-  ActiveRecord::Base.connection.close
-end
+# after { ActiveRecord::Base.connection.close }
 
-get("/") do
+get '/' do
   erb(:index)
 end
 
-get '/admin_recipe_box' do
+### admin portal
+get '/admin/recipes/new' do
   @categories = Category.all
   erb :recipe_create_form
 end
 
-get '/admin_portal' do
+get '/admin/recipes' do
   @categories = Category.all
   @recipes = Recipe.all
   @ingredients = Ingredient.all
   erb :recipe_crud
 end
 
-post '/admin_portal' do
+post '/admin/recipes' do
   instructions = params['instructions']
   dish_name    = params['dish_name']
   pic_link     = params['pic_link']
@@ -31,7 +30,7 @@ post '/admin_portal' do
   ingredients  = params['ingredients'].split(',')
 
   @recipe      = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
-  categories = params['category'].split(',')
+  categories   = params['category'].split(',')
 
   categories.each do |category_name|
     category = Category.find_or_create_by(dish_type: category_name)
@@ -39,7 +38,6 @@ post '/admin_portal' do
   end
 
   ingredients.each do |ingredient|
-
     if Ingredient.find_by({ item: ingredient })
       ingredient = Ingredient.find_by({ item: ingredient })
     else
@@ -47,23 +45,24 @@ post '/admin_portal' do
     end
       @recipe.ingredients.push(ingredient)
   end
+
   @recipes = Recipe.all
   @categories = Category.all
 
   erb :recipe_crud
 end
 
-get '/admin_portal/recipes/:id' do
+get '/admin/recipes/:id' do
   @recipe = Recipe.find(params['id'])
   erb :admin_recipe
 end
 
-get '/admin_portal/recipes/:id/edit' do
+get '/admin/recipes/:id/edit' do
   @recipe = Recipe.find(params['id'])
   erb :admin_recipe_edit_form
 end
 
-patch '/admin_portal/recipes/:id' do
+patch '/admin/recipes/:id' do
   instructions = params['instructions']
   dish_name    = params['dish_name']
   pic_link     = params['pic_link']
