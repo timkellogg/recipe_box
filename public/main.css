@@ -38,12 +38,59 @@
 h1, h2, h3, h4, p, li, label, input {
   letter-spacing: 1px;
 }
+
+.title-container {
+  margin-top: 2.4em;
+}
+
 .section-header {
   font-weight: 800;
+}
+
+.published-tag {
+  display: inline-block;
+  background-color: yellow;
+  color: darkred;
+}
+
+.unpublished-tag {
+  display: inline-block;
+  background-color: lightgreen;
+  color: darkgreen;
+}
+
+.date {
+
 }
 
 /* Images */
 img {
   max-width: 15em;
   max-height: 15em;
+}
+
+.extra-margin  {
+    margin-top: 20em;
+}
+
+.button-group .button {
+  border: 5em solid green;
+}
+
+
+::-webkit-input-placeholder {
+  color:lightgray;
+}
+:-moz-placeholder {
+  color: lightgray;
+}
+::-moz-placeholder {
+  color: lightgray;
+
+}
+:-ms-input-placeholder {
+  color: lightgray;
+}
+
+form {
 }

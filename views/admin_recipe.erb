@@ -1,17 +1,28 @@
-<h2>Admin:</h2>
+<h2>Full Recipe:</h2>
 
 <%= @recipe.rating %>/5<h3><%= @recipe.dish_name %></h3>
-<p>Added on:<%= @recipe.created_at %></p>
+
 
 <% if @recipe.published == false %>
-  <p>Not published</p>
+  <p class="published-tag">Not published</p>
 <% else %>
-  <p>Published</p>
+  <p class="unpublished-tag">Published</p>
+<% end %><br>
+
+<ul>
+<% @ingredients.each do |ingredient| %>
+  <li><%= ingredient.item %><li>
 <% end %>
+</ul>
 
 <img src="<%= @recipe.pic_link %>"/>
 <h4>Instructions:</h4>
-<p><%= @recipe.instructions %></p>
+
+<div id="recipe-instructions">
+  <%= @recipe.instructions %>
+</div>
+
+<p class="date">Added on: <%= (@recipe.created_at).strftime("%D at %I:%M%p") %></p>
 
 <div class="row">
   <div id="edit-panel" class="large-12 columns text-center">

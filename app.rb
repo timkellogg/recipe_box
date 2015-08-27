@@ -3,7 +3,7 @@ Bundler.require :default, :test
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
-# after { ActiveRecord::Base.connection.close }
+after { ActiveRecord::Base.connection.close }
 
 get '/' do
   @recipes = []
@@ -69,6 +69,7 @@ post '/admin/recipes' do
   pic_link     = params['pic_link']
   rating       = params['rating'].to_i
   published    = params['published']
+  ingredients  = params['ingredients'].split(',')
 
   if published == 't'
     published = true
@@ -76,36 +77,32 @@ post '/admin/recipes' do
     published = false
   end
 
-  ingredients  = params['ingredients'].split(',')
+  @recipe = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating, published: published })
 
-    # begin
-    @recipe      = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating, published: published })
-    categories   = params['category'].split(',')
-
-    categories.each do |category_name|
-      category = Category.find_or_create_by(dish_type: category_name)
-      @recipe.categories.push(category)
+  ingredients.each do |ingredient|
+    if Ingredient.find_by({ item: ingredient })
+      ingredient = Ingredient.find_by({ item: ingredient })
+    else
+      ingredient = Ingredient.create({ item: ingredient })
     end
+    @recipe.ingredients.push(ingredient)
+  end
 
-    ingredients.each do |ingredient|
-      if Ingredient.find_by({ item: ingredient })
-        ingredient = Ingredient.find_by({ item: ingredient })
-      else
-        ingredient = Ingredient.create({ item: ingredient })
-      end
-      @recipe.ingredients.push(ingredient)
-    end
+  new_params = params.reject! { |k,v| k == 'instructions' || k == 'ingredients' || k == 'dish_name' || k == 'pic_link' || k == 'rating' || k == 'published' }
 
-    @recipes = Recipe.all
-    @categories = Category.all
-    erb :admin_recipes
-  # rescue => e
-    # redirect "/admin/recipes/new"
-  # end
+  new_params.each do |k, v|
+    category = Category.find(v.to_i)
+    @recipe.categories.push(category)
+  end
+
+  @recipes = Recipe.all
+  @categories = Category.all
+  erb :admin_recipes
 end
 
 get '/admin/recipes/:id' do
   @recipe = Recipe.find(params['id'])
+  @ingredients = @recipe.ingredients
   erb :admin_recipe
 end
 
@@ -154,6 +151,7 @@ patch '/admin/recipes/:id' do
       @recipe.update({:ingredient_ids => ingredient.id})
       # @recipe.ingredients.push(ingredient)
     end
+    
 
     erb :admin_recipe
   rescue => e
