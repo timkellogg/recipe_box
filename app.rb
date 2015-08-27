@@ -6,11 +6,52 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 # after { ActiveRecord::Base.connection.close }
 
 get '/' do
-  @recipes = Recipe.all
+  @recipes = []
+  @recipes_highly_rate = []
 
-  erb(:index)
+  Recipe.all.each do |recipe|
+    if recipe.published
+      @recipes.push(recipe)
+    end
+    if recipe.rating > 3
+      @recipes_highly_rate.push(recipe)
+    end
+  end
+
+  erb :index
 end
 
+get '/categories' do
+  @categories = Category.all
+  erb :categories
+end
+
+get '/recipes/:id' do
+  @recipe = Recipe.find(params['id'])
+  erb :recipe
+end
+
+get '/categories' do
+  @categories = Category.all
+  erb :categories
+end
+
+get '/categories/:id' do
+  @category = Category.find(params['id'])
+  @recipes  = @category.recipes
+  erb :category
+end
+
+get '/ingredients' do
+  @ingredients = Ingredient.all
+  erb :ingredients
+end
+
+get '/ingredients/:id' do
+  @ingredient = Ingredient.find(params['id'])
+  @recipes = @ingredient.recipes
+  erb :ingredient
+end
 
 ### admin portal
 get '/admin/recipes/new' do

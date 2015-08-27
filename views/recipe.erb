@@ -1,0 +1,5 @@
+<h3><%= @recipe.dish_name %></h3>
+
+<% @recipe.categories.each do |category| %>
+  <a href="/categories/<%= category.id %>"><%= category.dish_type %></a>
+<% end %>

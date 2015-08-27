@@ -1,0 +1,8 @@
+
+<h2>Categories</h2>
+
+<ul id="categories-list">
+  <% @categories.each do |category| %>
+    <li><a href="categories/<%= category.id %>"><%= category.dish_type %></li>
+  <% end %>
+</ul>

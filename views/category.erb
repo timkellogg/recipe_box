@@ -1,0 +1,9 @@
+<h2><%= @category.dish_type %></h2>
+
+<h4>Recipes that feature <%= @category.dish_type %>:</h4>
+
+<ul>
+  <% @category.recipes.each do |recipe| %>
+    <a href="/recipes/<%= recipe.id %>"><li><%= recipe.dish_name %></li>
+  <% end %>
+</ul>

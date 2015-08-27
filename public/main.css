@@ -42,9 +42,6 @@ h1, h2, h3, h4, p, li, label, input {
   font-weight: 800;
 }
 
-/* Image Grid */
-.grid-item { width: 200px; }
-
 /* Images */
 img {
   max-width: 15em;

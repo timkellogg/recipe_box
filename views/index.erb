@@ -15,7 +15,7 @@
 </ul>
 
 <!-- Favorites -->
-<div class="row">
+<div id="favorites" class="row">
   <div class="large-12 columns text-center">
     <h1 class="section-header">Our Favorites</h1>
   </div>
@@ -25,10 +25,25 @@
     <% @recipes.each do |recipe| %>
       <div class="grid-item">
         <a href="/recipes/<%= recipe.id %>"><img src="<%= recipe.pic_link %>">
-        <p class="text-center picture-caption"><%= recipe.dish_name %></p>
+        <p class="text-center picture-caption"><%= recipe.dish_name %></p></a>
       </div>
     </div>
     <% end %>
   <% end %>
 
+
+</div>
+
+<div class="row">
+  <div class="large-4 columns text-center">
+    <h2 class="section-header">Our Highest Rated</h2>
+  </div>
+
+  <div class="large-4 columns text-center">
+    <a href="/categories"><h2 class="section-header">Top Categories</h2></a>
+  </div>
+
+  <div class="large-4 columns text-center">
+    <a href="/ingredients"><h2 class="section-header">Search by Ingredients</h2></a>
+  </div>
 </div>
