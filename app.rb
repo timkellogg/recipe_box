@@ -29,7 +29,7 @@ post '/admin/recipes' do
   rating       = params['rating'].to_i
   ingredients  = params['ingredients'].split(',')
 
-  begin
+    begin
     @recipe      = Recipe.create({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
     categories   = params['category'].split(',')
 
@@ -44,14 +44,14 @@ post '/admin/recipes' do
       else
         ingredient = Ingredient.create({ item: ingredient })
       end
-        @recipe.ingredients.push(ingredient)
+      @recipe.ingredients.push(ingredient)
     end
 
     @recipes = Recipe.all
     @categories = Category.all
     erb :admin_recipes
   rescue => e
-    redirect '/admin/recipes/new'
+    redirect "/admin/recipes/new"
   end
 end
 
@@ -93,13 +93,14 @@ patch '/admin/recipes/:id' do
 
     ingredients.each do |ingredient|
 
-      ingredient = Ingredient.find_by(item: ingredient)
+      ingredient = Ingredient.find_or_create_by(item: ingredient)
       ingredient.update({ item: ingredient})
       @recipe.ingredients.push(ingredient)
     end
-    erb :recipe
+
+    erb :admin_recipe
   rescue => e
-    redirect "/admin/recipes/#{@recipe.id}/edit"
+    redirect "/admin/recipes/#{@recipe.id}"
   end
 end
 
