@@ -1,0 +1,34 @@
+.orbit-container {
+  max-height: 18em;
+  width: 100%;
+}
+
+#slider-image1 {
+  width: 100%;
+  height: 18em;
+  background: url('/img/slider1.jpg') no-repeat left center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#slider-image2 {
+  width: 100%;
+  height: 18em;
+  background: url('/img/slider2.jpg') no-repeat left center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#slider-image3 {
+  width: 100%;
+  height: 18em;
+  background: url('/img/slider3.jpg') no-repeat left center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
