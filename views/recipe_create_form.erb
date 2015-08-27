@@ -28,9 +28,9 @@
 
   <div class="row"
     <div class="large-12 text-center columns">
-      <label for="category">Select categories</label>
+    <label for="category">Select categories</label>
       <% @categories.each_with_index do |category, index| %>
-          <input type="checkbox" name="category-<%=index %>" value="<%= category.id %>"><label for="category-<%= index %>"><%= category.dish_type %></label><br>
+        <input type="checkbox" name="category-<%=index %>" value="<%= category.id %>"><label for="category-<%= index %>"><%= category.dish_type %></label><br>
       <% end %>
     </div>
   </div>
@@ -47,7 +47,7 @@
 
   <div class="row">
     <div class="large-12 columns text-center">
-      <button type="submit">Submit</button>
+      <button class="round " type="submit">Submit</button>
     </div>
   </div>
   </div>

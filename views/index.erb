@@ -14,40 +14,28 @@
   </li>
 </ul>
 
-<!-- Favorites -->
 <div id="favorites" class="container">
   <div class="large-12 columns text-center">
-    <h1 class="section-header">Our Favorites</h1>
+    <h1 class="section-header header">Our Favorites</h1>
   </div>
+</div>
 
+<div class="container">
   <% if @recipes.any? %>
-    <% @recipes.each do |recipe| %>
-      <div class="large-12 columns text-center">
-        <a href="/recipes/<%= recipe.id %>"><img src="<%= recipe.pic_link %>">
-        <p class="text-center picture-caption"><%= recipe.dish_name %>
-        <% recipe.rating.times do %>
-          <span class="rating"><i class="fi-star"></i></span>
-        <% end %></p>
+    <% @recipes.each_with_index do |recipe, index| %>
+      <div class="large-4 columns text-center outside-pic-container">
+        <div class="pic-container">
+          <a href="/recipes/<%= recipe.id %>"><img class="home-image" src="<%= recipe.pic_link %>">
+            <p class="text-center picture-caption"><%= recipe.dish_name %>
+              <% recipe.rating.times do %>
+              <span class="rating"><i class="fi-star"></i></span>
+              <% end %>
+            </p>
+          </a>
+        </div>
       </div>
     <% end %>
   <% end %>
 </div>
 
-<div class="row">
-  <div class="large-4 columns text-center">
-    <h2 class="section-header">Our Highest Rated</h2>
-    <ul>
-      <% @recipes_highly_rated.each do |recipe| %>
-      <li><%= recipe.dish_name %></li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="large-4 columns text-center">
-    <a href="/categories"><h2 class="section-header">Top Categories</h2></a>
-  </div>
-
-  <div class="large-4 columns text-center">
-    <a href="/ingredients"><h2 class="section-header">Search by Ingredients</h2></a>
-  </div>
-</div>
+<hr>

@@ -1,8 +1,13 @@
+<div class="row">
+  <div class="text-center large-12 columns">
+    <h2 class="section-header">Categories</h2>
+  </div>
+</div>
 
-<h2>Categories</h2>
-
-<ul id="categories-list">
-  <% @categories.each do |category| %>
-    <li><a href="categories/<%= category.id %>"><%= category.dish_type %></li>
-  <% end %>
-</ul>
+<div class="row text-left">
+  <ul id="categories-list">
+    <% @categories.each do |category| %>
+      <h2><li><a href="categories/<%= category.id %>"><%= category.dish_type %></li></h2>
+    <% end %>
+  </ul>
+</div>
