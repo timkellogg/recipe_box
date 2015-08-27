@@ -13,3 +13,22 @@
     <div class="orbit-caption text-center">Caption Three.</div>
   </li>
 </ul>
+
+<!-- Favorites -->
+<div class="row">
+  <div class="large-12 columns text-center">
+    <h1 class="section-header">Our Favorites</h1>
+  </div>
+
+  <% if @recipes.any? %>
+  <div class="grid">
+    <% @recipes.each do |recipe| %>
+      <div class="grid-item">
+        <a href="/recipes/<%= recipe.id %>"><img src="<%= recipe.pic_link %>">
+        <p class="text-center picture-caption"><%= recipe.dish_name %></p>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+
+</div>

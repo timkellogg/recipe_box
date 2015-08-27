@@ -1,3 +1,4 @@
+/* Slider */
 .orbit-container {
   max-height: 18em;
   width: 100%;
@@ -31,4 +32,21 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+/* Typography */
+h1, h2, h3, h4, p, li, label, input {
+  letter-spacing: 1px;
+}
+.section-header {
+  font-weight: 800;
+}
+
+/* Image Grid */
+.grid-item { width: 200px; }
+
+/* Images */
+img {
+  max-width: 15em;
+  max-height: 15em;
 }
