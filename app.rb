@@ -7,17 +7,19 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 get '/' do
   @recipes = []
-  @recipes_highly_rate = []
+  @recipes_highly_rated = []
 
   Recipe.all.each do |recipe|
     if recipe.published
       @recipes.push(recipe)
     end
     if recipe.rating > 3
-      @recipes_highly_rate.push(recipe)
+      @recipes_highly_rated.push(recipe)
     end
   end
 
+  @recipes
+  @recipes_highly_rated
   erb :index
 end
 
@@ -29,11 +31,6 @@ end
 get '/recipes/:id' do
   @recipe = Recipe.find(params['id'])
   erb :recipe
-end
-
-get '/categories' do
-  @categories = Category.all
-  erb :categories
 end
 
 get '/categories/:id' do
@@ -132,22 +129,30 @@ patch '/admin/recipes/:id' do
     pic_link     = params['pic_link']
     rating       = params['rating'].to_i
     ingredients  = params['ingredients'].split(',')
+    published    = params['published']
+    categories   = params['category'].split(',')
+
+    if published == 't'
+      published = true
+    else
+      published = false
+    end
 
     @recipe = Recipe.find(params['id'])
 
-    @recipe.update({ instructions: instructions, dish_name: dish_name, pic_link: pic_link, rating: rating })
-    categories = params['category'].split(',')
+    @recipe.update({ instructions: instructions, dish_name: dish_name,
+                     pic_link: pic_link, rating: rating, published: published })
 
+    @recipe.update({})
     categories.each do |category_name|
       category = Category.find_or_create_by(dish_type: category_name)
-      @recipe.categories.push(category)
+      @recipe.update({:category_ids => category.id})
     end
 
     ingredients.each do |ingredient|
-
       ingredient = Ingredient.find_or_create_by(item: ingredient)
-      ingredient.update({ item: ingredient})
-      @recipe.ingredients.push(ingredient)
+      @recipe.update({:ingredient_ids => ingredient.id})
+      # @recipe.ingredients.push(ingredient)
     end
 
     erb :admin_recipe
