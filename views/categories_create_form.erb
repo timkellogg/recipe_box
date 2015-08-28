@@ -4,10 +4,11 @@
   </div>
 </div>
 
-<form action="/admin/recipes/" method="post">
+<form action="/admin/recipes/" method="post" data-abide>
   <div class="row">
     <div class="large-12 text-center columns">
-      <input type="text" cols="10" name="category" required placeholder="Name of Category">
+      <input type="text" cols="10" name="category" required class="error" placeholder="Name of Category">
+      <small class="error">A category name is required.</small>
 
       <button class="round" type="submit">Submit</button>
     </div>

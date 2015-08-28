@@ -4,10 +4,11 @@
   </div>
 </div>
 
-<form action="/admin/recipes" method="post">
+<form action="/admin/recipes" method="post" data-abide>
   <div class="row">
     <div class="large-6 columns">
       <input type="text" name="dish_name" placeholder="Dish Name" required class="error">
+      <small class="error">Dish name is required.</small>
     </div>
 
     <div class="large-6 columns">
@@ -22,7 +23,8 @@
 
   <div class="row">
     <div class="large-12 text-center columns">
-      <input type="text" required name="ingredients" placeholder="Ingredients">
+      <input type="text" required name="ingredients" class="error" placeholder="Ingredients">
+      <small class="error">An ingredient is required.</small>
     </div>
   </div>
 
@@ -52,3 +54,5 @@
   </div>
   </div>
 </form>
+
+
