@@ -1,29 +1,43 @@
-<h2>Full Recipe:</h2>
-
-<%= @recipe.rating %>/5<h3><%= @recipe.dish_name %></h3>
-
-
-<% if @recipe.published == false %>
-  <p class="published-tag">Not published</p>
-<% else %>
-  <p class="unpublished-tag">Published</p>
-<% end %><br>
-
-<ul>
-<% @ingredients.each do |ingredient| %>
-  <li><%= ingredient.item %><li>
-<% end %>
-</ul>
-
-<img src="<%= @recipe.pic_link %>"/>
-<h4>Instructions:</h4>
-
-<div id="recipe-instructions">
-  <%= @recipe.instructions %>
+<div class="row">
+  <div class="large-12 columns text-center">
+    <h2 class="section-header">Edit <%= @recipe.dish_name %>
+    <% if @recipe.published == false %>
+      <p class="published-tag">Not published</p>
+    <% else %>
+      <p class="unpublished-tag">Published</p>
+    <% end %></h2>
+      <p class="date">Added on: <%= (@recipe.created_at).strftime("%D at %I:%M%p") %></p>
+      <h2><% @recipe.rating.times do %>
+        <span class="rating"><i class="fi-star"></i></span>
+      <% end %>
+    </h2>
+  </div>
 </div>
 
-<p class="date">Added on: <%= (@recipe.created_at).strftime("%D at %I:%M%p") %></p>
+<div class="row">
+  <div class="large-3 columns text-left">
+    <img src="<%= @recipe.pic_link %>"/>
+  </div>
 
+  <div class="large-9 columns text-left">
+    <p><%= @recipe.instructions %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns text-center">
+    <%= @recipe.instructions %>
+  </div>
+</div>
+
+<ul class="inline-list">
+  <li>You'll need:</li>
+  <% @ingredients.each do |ingredient| %>
+    <li><%= ingredient.item %><li>
+  <% end %>
+</ul>
+
+<hr>
 <div class="row">
   <div id="edit-panel" class="large-12 columns text-center">
     <a class="button info" href="/admin/recipes/<%= @recipe.id %>/edit">Edit</a>

@@ -1,28 +1,27 @@
 <div class="row">
-  <div class="large-12 text-center columns">
-    <h1 class="section-header">Admin Portal Home</h1>
+
+  <!-- Admin Bar -->
+  <aside class="large-3 columns text-left">
+    <ul class="side-nav">
+      <li><a class="button secondary large expand " href="/admin/recipes/new">Create a new recipe</a></li>
+      <li><a href="/admin/categories/new" class="button expand large ">Create a new category</a></li>
+    </ul>
+  </aside>
+  <!-- Content/Categories -->
+  <div id="admin-categories-listing" class="large-9 columns text-center" role="content">
+    <div class="row">
+
+      <h1 class="section-header">Categories</h1>
+    </div>
+    <% @categories.each do |category| %>
+    <a href="/admin/categories/<%= category.id %>"><h1><%= category.dish_type %></h1></a>
+      <% category.recipes.each do |recipe| %>
+      <h4>Recipes:</h4>
+        <a class="th" href="/admin/recipes/<%= recipe.id %>">
+          <img src="<%=recipe.pic_link %>">
+        </a>
+      <% end %>
+    <% end %>
   </div>
+
 </div>
-
-
-<div class="row extra-margin">
-  <div class="large-6 columns text-center">
-    <a class="button large expand round" href="/admin/recipes/new">Create a new recipe</a>
-  </div>
-
-  <div class="large-6 columns text-center">
-    <a href="/admin/categories/new" class="button expand large round">Create a new category</a>
-  </div>
-</div>
-
-
-<h2 class="section-header">Categories:</h2>
-<% @categories.each do |category| %>
-<a href="/admin/categories/<%= category.id %>"><h1><%= category.dish_type %></h1></a>
-  <% category.recipes.each do |recipe| %>
-  <h4>Recipes:</h4>
-    <a class="th" href="/admin/recipes/<%= recipe.id %>">
-      <img src="<%=recipe.pic_link %>">
-    </a>
-  <% end %>
-<% end %>
